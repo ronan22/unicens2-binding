@@ -265,9 +265,8 @@ set(CMP0048 1)
 # Include project configuration
 # ------------------------------
 project(${PROJECT_NAME} VERSION ${PROJECT_VERSION} LANGUAGES ${PROJECT_LANGUAGES})
-set(PROJECT_PKG_DIR    "pkgout" CACHE PATH "Subpath to packages")
-set(PROJECT_LIB_DIR    "libs" CACHE PATH "Subpath to libraries")
-set(PROJECT_RESOURCES  "data"  CACHE PATH "Subpath to data")
+set(PROJECT_LIBDIR "${CMAKE_SOURCE_DIR}/libs" CACHE PATH "Subpath to libraries")
+set(PROJECT_RESOURCES "${CMAKE_SOURCE_DIR}/data" CACHE PATH "Subpath to data")
 
 set(AFB_TOKEN   ""      CACHE PATH "Default AFB_TOKEN")
 set(AFB_REMPORT "1234"  CACHE PATH "Default AFB_TOKEN")
@@ -367,8 +366,9 @@ endif()
 # Print developer helper message when build is done
 # -------------------------------------------------------
 macro(project_closing_msg)
-        get_property(PROJECT_TARGETS GLOBAL PROPERTY PROJECT_TARGETS)
-	if(CLOSING_MESSAGE AND PROJECT_TARGETS)
+	get_property(PROJECT_TARGETS_SET GLOBAL PROPERTY PROJECT_TARGETS SET)
+	get_property(PROJECT_TARGETS GLOBAL PROPERTY PROJECT_TARGETS)
+	if(CLOSING_MESSAGE AND ${PROJECT_TARGETS_SET})
 		add_custom_target(${PROJECT_NAME}_build_done ALL
 			COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --cyan "++ ${CLOSING_MESSAGE}"
 		)

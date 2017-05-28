@@ -64,11 +64,17 @@ if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS ${gcc_minimal_version} OR CMAKE_C_CO
 endif()
 endif(gcc_minimal_version)
 
+# Check Kernel minimal version
+if (kernel_minimal_version)
+	message (STATUS "${Blue}-- Check kernel_minimal_version (found kernel version ${CMAKE_SYSTEM_VERSION})${ColourReset}")
+	if (CMAKE_SYSTEM_VERSION VERSION_LESS ${kernel_minimal_version})
+	message(FATAL_ERROR "${Red}**** FATAL: Require at least ${kernel_minimal_version} please use a recent kernel.")
+endif()
+endif(kernel_minimal_version)
+
 macro(defstr name value)
 	add_definitions(-D${name}=${value})
 endmacro(defstr)
-
-
 
 # Pre-packaging
 macro(project_targets_populate)

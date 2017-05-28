@@ -182,13 +182,6 @@ endmacro(remote_targets_populate)
 
 macro(wgt_package_build)
 	if(NOT EXISTS ${WGT_TEMPLATE_DIR}/config.xml.in OR NOT EXISTS ${WGT_TEMPLATE_DIR}/icon-default.png)
-		# Build widget spec file from template only once (Fulup good idea or should depend on time ????)
-		if(NOT EXISTS ${WGT_TEMPLATE_DIR}/config.xml.in OR NOT EXISTS ${WGT_TEMPLATE_DIR}/${PROJECT_ICON})
-			configure_file(${WGT_TEMPLATE_DIR}/config.xml.in ${PROJECT_PKG_BUILD_DIR}/config.xml)
-			configure_file(${WGT_TEMPLATE_DIR}/config.xml.in ${PROJECT_PKG_ENTRY_POINT}/config.xml)
-			file(COPY ${WGT_TEMPLATE_DIR}/icon-default.png DESTINATION ${PROJECT_PKG_BUILD_DIR}/${PROJECT_ICON})
-		endif(NOT EXISTS ${WGT_TEMPLATE_DIR}/config.xml.in OR NOT EXISTS ${WGT_TEMPLATE_DIR}/${PROJECT_ICON})
-
 		MESSAGE(FATAL_ERROR "${Red}WARNING ! Missing mandatory files to build widget file.\nYou need config.xml.in and ${PROJECT_ICON} files in ${WGT_TEMPLATE_DIR} folder.${ColourReset}")
 	endif()
 

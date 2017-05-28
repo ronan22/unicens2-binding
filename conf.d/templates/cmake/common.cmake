@@ -367,8 +367,8 @@ set(WGT_TEMPLATE_DIR "${PKG_TEMPLATE_PREFIX}/wgt" CACHE PATH "Subpath to a direc
 set(RPM_TEMPLATE_DIR "${PKG_TEMPLATE_PREFIX}/rpm" CACHE PATH "Subpath to a directory where are stored needed files to build rpm package")
 set(DEB_TEMPLATE_DIR "${PKG_TEMPLATE_PREFIX}/deb" CACHE PATH "Subpath to a directory where are stored needed files to build deb package")
 
-string(REGEX REPLACE "\/.*$" "" ENTRY_POINT ${PKG_TEMPLATE_PREFIX})
-set(PROJECT_PKG_ENTRY_POINT ${ENTRY_POINT} CACHE PATH "Where package build files, like rpm.spec file or config.xml, are write.")
+string(REGEX REPLACE "(.*)\/.*$" "\\1" ENTRY_POINT "${PKG_TEMPLATE_PREFIX}")
+set(PROJECT_PKG_ENTRY_POINT ${ENTRY_POINT}/packaging CACHE PATH "Where package build files, like rpm.spec file or config.xml, are write.")
 
 # Default Linkflag
 if(NOT BINDINGS_LINK_FLAG)

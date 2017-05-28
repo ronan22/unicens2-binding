@@ -87,7 +87,7 @@ macro(project_targets_populate)
 	set(PACKAGE_DATADIR ${PROJECT_PKG_BUILD_DIR}/data)
 
 	add_custom_target(populate)
-        get_property(PROJECT_TARGETS GLOBAL PROPERTY PROJECT_TARGETS)
+		get_property(PROJECT_TARGETS GLOBAL PROPERTY PROJECT_TARGETS)
 	foreach(TARGET ${PROJECT_TARGETS})
 		get_target_property(T ${TARGET} LABELS)
 		if(T)
@@ -219,7 +219,7 @@ macro(rpm_package_build)
 		# extract PROJECT_PKG_DEPS and replace ; by , for RPM spec file
 		get_property(PROJECT_PKG_DEPS GLOBAL PROPERTY PROJECT_PKG_DEPS)
 		foreach (PKFCONF ${PROJECT_PKG_DEPS})
-		set(RPM_PKG_DEPS "${RPM_PKG_DEPS}, pkgconfig(${PKFCONF})")
+			set(RPM_PKG_DEPS "${RPM_PKG_DEPS}, pkgconfig(${PKFCONF})")
 		endforeach()
 
 		# build rpm spec file from template
@@ -283,7 +283,7 @@ set(PROJECT_LIBDIR "${CMAKE_SOURCE_DIR}/libs" CACHE PATH "Subpath to libraries")
 set(PROJECT_RESOURCES "${CMAKE_SOURCE_DIR}/data" CACHE PATH "Subpath to data")
 
 set(AFB_TOKEN   ""      CACHE PATH "Default AFB_TOKEN")
-set(AFB_REMPORT "1234"  CACHE PATH "Default AFB_TOKEN")
+set(AFB_REMPORT "1234" CACHE PATH "Default AFB_TOKEN")
 
 INCLUDE(FindPkgConfig)
 INCLUDE(CheckIncludeFiles)
@@ -314,9 +314,9 @@ set(CMAKE_CXX_FLAGS_CCOV "-g -O2 --coverage")
 
 # Env variable overload default
 if(DEFINED ENV{INSTALL_PREFIX})
-    set (INSTALL_PREFIX $ENV{INSTALL_PREFIX})
+	set (INSTALL_PREFIX $ENV{INSTALL_PREFIX})
 else()
-    set(INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/Install" CACHE PATH "The path where to install")
+	set(INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/Install" CACHE PATH "The path where to install")
 endif()
 set(CMAKE_INSTALL_PREFIX ${INSTALL_PREFIX} CACHE STRING "Installation Prefix" FORCE)
 
@@ -348,9 +348,9 @@ INCLUDE_DIRECTORIES(${EXTRA_INCLUDE_DIRS})
 
 # If no install dir try to guess some smart default
 if(BINDINGS_INSTALL_PREFIX)
-	set(BINDINGS_INSTALL_DIR ${BINDINGS_INSTALL_PREFIX}/${PROJECT_NAME})
+	set(BINDINGS_INSTALL_DIR ${BINDINGS_INSTALL_PREFIX}/${PROJECT_NAME} CACHE PATH "Where the binding will be installed in your system")
 else()
-	set(BINDINGS_INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME})
+	set(BINDINGS_INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME} CACHE PATH "Where the binding will be installed in your system")
 endif()
 
 # Define a default package directory
@@ -367,7 +367,7 @@ set(WGT_TEMPLATE_DIR "${PKG_TEMPLATE_PREFIX}/wgt" CACHE PATH "Subpath to a direc
 set(RPM_TEMPLATE_DIR "${PKG_TEMPLATE_PREFIX}/rpm" CACHE PATH "Subpath to a directory where are stored needed files to build rpm package")
 set(DEB_TEMPLATE_DIR "${PKG_TEMPLATE_PREFIX}/deb" CACHE PATH "Subpath to a directory where are stored needed files to build deb package")
 
-string('REGEX REPLACE "\/.*$" ENTRY_POINT ${PKG_TEMPLATE_PREFIX})
+string(REGEX REPLACE "\/.*$" "" ENTRY_POINT ${PKG_TEMPLATE_PREFIX})
 set(PROJECT_PKG_ENTRY_POINT ${ENTRY_POINT} CACHE PATH "Where package build files, like rpm.spec file or config.xml, are write.")
 
 # Default Linkflag
